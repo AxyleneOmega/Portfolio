@@ -518,6 +518,10 @@
     position: relative;
 }
 
+.projects a{
+    cursor: pointer;
+}
+
 .project__card:nth-child(1){
     margin: 1rem;
     height: 525px;
