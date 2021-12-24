@@ -393,7 +393,7 @@
         to bottom,
         rgba(0,0,0,0) 0%,
         rgba(17,17,17,0.6) 100%
-        ), url('/images/code.jpg');
+        ), url('https://axyleneomega.github.io/Portfolio/images/code.jpg');
     background-size:cover;
     position: relative;
     color: #fff;
@@ -409,7 +409,7 @@
         rgba(0,0,0,0) 0%,
         rgba(17,17,17,0.6) 100%
         ),
-        url('/images/design.jpg');
+        url('https://axyleneomega.github.io/Portfolio/images/design.jpg');
     background-size:cover;
     position: relative;
     color: #fff;
@@ -424,7 +424,7 @@
         rgba(0,0,0,0) 0%,
         rgba(17,17,17,0.6) 100%
         ),
-        url('/images/game.jpg');
+        url('https://axyleneomega.github.io/Portfolio/images/game.jpg');
     background-size:cover;
     position: relative;
     color: #fff;
