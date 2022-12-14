@@ -10,7 +10,7 @@
 /* Navbar Section CSS */
 .navbar{
     background: #0d1d3f;
-    background-image: linear-gradient(to top, rgb(27, 96, 119) 10%, #0d1d3f 100%);
+    background-image: linear-gradient(to top, #0d1d3f  0%, rgb(27, 96, 119) 90%);
     height: 80px;
     display: flex;
     justify-content: center;
@@ -47,10 +47,12 @@
     cursor: pointer;
     text-decoration: none;
     font-size: 2rem;
+    margin: 2rem;
 }
-
-.fa-circle-notch{
-    margin: 0.5rem;
+.ak_logo{
+    position: relative;
+    align-items: center;
+    margin: 2rem;
 }
 
 .navbar__menu{
@@ -650,13 +652,18 @@
 
 .footer__links{
     height: max-content;
-    padding: 2rem;
+    padding: 1.5rem;
+    padding-bottom: 2rem;
     display: flex;
     justify-content: center;
     align-self: center;
     align-items: stretch;
     flex-wrap: wrap;
     position: relative;
+}
+
+.footer__link--items{
+    padding: 2.5rem;
 }
 
 .footer__links--items:nth-child(0){
@@ -688,7 +695,7 @@
 
 @media screen and (max-width: 1315px){
     .footer__container{
-        height:480px;
+        height:max-content;
     }
     .project__card{
         position: relative;
@@ -701,7 +708,7 @@
 }
 @media screen and (max-width: 883px){
     .footer__container{
-        height:800px;
+        height:max-content;
     }
     .project__card{
         width:300px;
@@ -713,7 +720,7 @@
 }
 @media screen and (max-width: 480px){
     .footer__container{
-        height:600px;
+        height:max-content;
     }
 
     .projects h1{
