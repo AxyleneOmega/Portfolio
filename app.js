@@ -1,8 +1,47 @@
 const root = document.documentElement;
 const themeToggle = document.querySelector('.theme-toggle');
-const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+const themeHint = document.querySelector('#theme-preference-hint');
+const reducedMotion = typeof window.matchMedia === 'function'
+  ? window.matchMedia('(prefers-reduced-motion: reduce)')
+  : { matches: false };
 
-const setTheme = (theme, { persist = true, animate = true } = {}) => {
+// The platform preference is re-read on every load. A manual switch is honored
+// for the current visit, while the dot continues to show the detected platform mode.
+let userOverride = false;
+
+const getSystemTheme = () => {
+  if (typeof window.matchMedia !== 'function') return null;
+
+  const dark = window.matchMedia('(prefers-color-scheme: dark)');
+  const light = window.matchMedia('(prefers-color-scheme: light)');
+
+  if (dark.media !== '(prefers-color-scheme: dark)' ||
+      light.media !== '(prefers-color-scheme: light)') return null;
+  if (dark.matches) return 'dark';
+  if (light.matches) return 'light';
+  return null;
+};
+
+const updateSystemPreference = (theme) => {
+  root.dataset.systemTheme = theme || '';
+  root.dataset.themeSource = theme ? 'system' : 'default';
+
+  if (themeToggle) {
+    if (theme) {
+      themeToggle.dataset.systemTheme = theme;
+    } else {
+      delete themeToggle.dataset.systemTheme;
+    }
+  }
+
+  if (themeHint) {
+    themeHint.textContent = theme
+      ? `System preference: ${theme} mode.`
+      : 'System display preference could not be detected.';
+  }
+};
+
+const setTheme = (theme, { animate = true } = {}) => {
   const applyTheme = () => {
     root.dataset.theme = theme;
 
@@ -12,14 +51,6 @@ const setTheme = (theme, { persist = true, animate = true } = {}) => {
     if (themeToggle) {
       themeToggle.setAttribute('aria-checked', String(theme === 'dark'));
       themeToggle.setAttribute('title', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
-    }
-
-    if (persist) {
-      try {
-        localStorage.setItem('portfolio-theme', theme);
-      } catch (_) {
-        // Theme still works when storage is unavailable.
-      }
     }
   };
 
@@ -52,11 +83,36 @@ const setTheme = (theme, { persist = true, animate = true } = {}) => {
   transition.finished.then(cleanup, cleanup);
 };
 
-setTheme(root.dataset.theme || 'light', { persist: false, animate: false });
+const initialSystemTheme = getSystemTheme();
+updateSystemPreference(initialSystemTheme);
+setTheme(initialSystemTheme || root.dataset.theme || 'light', { animate: false });
 
 if (themeToggle) {
   themeToggle.addEventListener('click', () => {
+    userOverride = true;
     setTheme(root.dataset.theme === 'dark' ? 'light' : 'dark');
+  });
+}
+
+const handleSystemChange = () => {
+  const systemTheme = getSystemTheme();
+  updateSystemPreference(systemTheme);
+
+  if (systemTheme && !userOverride && root.dataset.theme !== systemTheme) {
+    setTheme(systemTheme);
+  }
+};
+
+if (typeof window.matchMedia === 'function') {
+  const darkQuery = window.matchMedia('(prefers-color-scheme: dark)');
+  const lightQuery = window.matchMedia('(prefers-color-scheme: light)');
+
+  [darkQuery, lightQuery].forEach((query) => {
+    if (typeof query.addEventListener === 'function') {
+      query.addEventListener('change', handleSystemChange);
+    } else if (typeof query.addListener === 'function') {
+      query.addListener(handleSystemChange);
+    }
   });
 }
 

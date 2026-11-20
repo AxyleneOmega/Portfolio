@@ -29,6 +29,7 @@
     --theme-thumb: #fbfdfb;
     --theme-icon-muted: #6d8290;
     --theme-icon-active: #154376;
+    --theme-icon-on-thumb: #154376;
     --theme-ring: rgba(6, 101, 149, 0.18);
     --measure: 1200px;
     --radius: 18px;
@@ -64,6 +65,7 @@ html[data-theme="dark"] {
     --theme-thumb: #f4f7ff;
     --theme-icon-muted: #8490bd;
     --theme-icon-active: #f6fbff;
+    --theme-icon-on-thumb: #12152f;
     --theme-ring: rgba(123, 200, 240, 0.25);
 }
 
@@ -71,6 +73,18 @@ html[data-theme="dark"] {
 *::before,
 *::after {
     box-sizing: border-box;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
 }
 
 html {
@@ -291,6 +305,33 @@ main,
     pointer-events: none;
 }
 
+.theme-toggle__icon-slot {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 18px;
+    height: 18px;
+}
+
+.theme-toggle__preference {
+    position: absolute;
+    left: 50%;
+    bottom: -5px;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--theme-icon-active);
+    opacity: 0;
+    transform: translateX(-50%) scale(0.6);
+    transition: opacity 0.35s ease, transform 0.35s ease, background-color 0.45s ease;
+}
+
+.theme-toggle[data-system-theme="light"] .theme-toggle__icon-slot--sun .theme-toggle__preference,
+.theme-toggle[data-system-theme="dark"] .theme-toggle__icon-slot--moon .theme-toggle__preference {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+}
+
 .theme-toggle__thumb {
     position: absolute;
     top: 3px;
@@ -328,7 +369,11 @@ main,
 
 html[data-theme="light"] .theme-toggle__icon--sun,
 html[data-theme="dark"] .theme-toggle__icon--moon {
-    stroke: var(--theme-icon-active);
+    stroke: var(--theme-icon-on-thumb);
+}
+
+html[data-theme="dark"] .theme-toggle[data-system-theme="dark"] .theme-toggle__preference {
+    background: var(--theme-icon-on-thumb);
 }
 
 html[data-theme="light"] .theme-toggle__icon--moon {
@@ -1135,7 +1180,8 @@ html.is-theme-changing *::after {
     .toolkit li,
     .theme-toggle,
     .theme-toggle__thumb,
-    .theme-toggle__icon {
+    .theme-toggle__icon,
+    .theme-toggle__preference {
         transition: none;
     }
 
