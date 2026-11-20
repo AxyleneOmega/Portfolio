@@ -3,8 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark">
     <meta name="description" content="Advaith Karnad is a game systems developer working in Unreal Engine 5 on gameplay abilities, replicated multiplayer, and simulation tooling.">
     <title>Advaith Karnad — Game systems &amp; Unreal Engine development</title>
+    <script>
+        (() => {
+            let theme = 'light';
+            try {
+                const stored = localStorage.getItem('portfolio-theme');
+                if (stored === 'dark' || stored === 'light') theme = stored;
+            } catch (_) {
+                theme = 'light';
+            }
+            document.documentElement.dataset.theme = theme;
+            const scheme = document.querySelector('meta[name="color-scheme"]');
+            if (scheme) scheme.content = theme === 'dark' ? 'dark light' : 'light dark';
+        })();
+    </script>
     <link rel="icon" type="image/png" href="images/AK.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -32,20 +47,36 @@
                 <span class="brand__name">Advaith Karnad</span>
             </a>
 
-            <button class="nav__toggle" id="mobile-menu" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="primary-menu">
-                <span></span>
-                <span></span>
-            </button>
+            <div class="nav__right">
+                <button class="theme-toggle" type="button" role="switch" aria-checked="false" aria-label="Dark mode" title="Switch to dark mode">
+                    <span class="theme-toggle__track" aria-hidden="true">
+                        <span class="theme-toggle__thumb"></span>
+                        <svg class="theme-toggle__icon theme-toggle__icon--sun" viewBox="0 0 24 24" focusable="false">
+                            <circle cx="12" cy="12" r="4.2"></circle>
+                            <path d="M12 2v2.2M12 19.8V22M4.9 4.9l1.6 1.6M17.5 17.5l1.6 1.6M2 12h2.2M19.8 12H22M4.9 19.1l1.6-1.6M17.5 6.5l1.6-1.6"></path>
+                        </svg>
+                        <svg class="theme-toggle__icon theme-toggle__icon--moon" viewBox="0 0 24 24" focusable="false">
+                            <path d="M20.2 14.6A8.4 8.4 0 0 1 9.4 3.8a8.6 8.6 0 1 0 10.8 10.8Z"></path>
+                            <path d="M17.4 3.2v3.1M15.9 4.7h3.1"></path>
+                        </svg>
+                    </span>
+                </button>
 
-            <ul class="nav__menu" id="primary-menu">
-                <li><a href="#top">Home</a></li>
-                <li><a href="#experience">Experience</a></li>
-                <li><a href="#about">Systems</a></li>
-                <li><a href="#work">Work</a></li>
-                <li><a href="#background">Background</a></li>
-                <li><a href="#connect">Connect</a></li>
-                <li class="nav__external"><a href="https://github.com/AxyleneOmega" target="_blank" rel="noopener noreferrer">GitHub</a></li>
-            </ul>
+                <button class="nav__toggle" id="mobile-menu" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="primary-menu">
+                    <span></span>
+                    <span></span>
+                </button>
+
+                <ul class="nav__menu" id="primary-menu">
+                    <li><a href="#top">Home</a></li>
+                    <li><a href="#experience">Experience</a></li>
+                    <li><a href="#about">Systems</a></li>
+                    <li><a href="#work">Work</a></li>
+                    <li><a href="#background">Background</a></li>
+                    <li><a href="#connect">Connect</a></li>
+                    <li class="nav__external"><a href="https://github.com/AxyleneOmega" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+                </ul>
+            </div>
         </nav>
     </header>
 

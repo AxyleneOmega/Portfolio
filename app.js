@@ -1,3 +1,65 @@
+const root = document.documentElement;
+const themeToggle = document.querySelector('.theme-toggle');
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+const setTheme = (theme, { persist = true, animate = true } = {}) => {
+  const applyTheme = () => {
+    root.dataset.theme = theme;
+
+    const scheme = document.querySelector('meta[name="color-scheme"]');
+    if (scheme) scheme.content = theme === 'dark' ? 'dark light' : 'light dark';
+
+    if (themeToggle) {
+      themeToggle.setAttribute('aria-checked', String(theme === 'dark'));
+      themeToggle.setAttribute('title', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+    }
+
+    if (persist) {
+      try {
+        localStorage.setItem('portfolio-theme', theme);
+      } catch (_) {
+        // Theme still works when storage is unavailable.
+      }
+    }
+  };
+
+  const canAnimate =
+    animate &&
+    !reducedMotion.matches &&
+    document.visibilityState === 'visible' &&
+    window.self === window.top &&
+    typeof document.startViewTransition === 'function';
+
+  if (!canAnimate) {
+    applyTheme();
+    return;
+  }
+
+  let applied = false;
+  const applyOnce = () => {
+    if (applied) return;
+    applied = true;
+    applyTheme();
+  };
+
+  root.classList.add('is-theme-changing');
+  const transition = document.startViewTransition(applyOnce);
+  const cleanup = () => root.classList.remove('is-theme-changing');
+  transition.ready.catch(() => {
+    applyOnce();
+    cleanup();
+  });
+  transition.finished.then(cleanup, cleanup);
+};
+
+setTheme(root.dataset.theme || 'light', { persist: false, animate: false });
+
+if (themeToggle) {
+  themeToggle.addEventListener('click', () => {
+    setTheme(root.dataset.theme === 'dark' ? 'light' : 'dark');
+  });
+}
+
 const toggle = document.querySelector('.nav__toggle');
 const menu = document.querySelector('.nav__menu');
 
