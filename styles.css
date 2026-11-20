@@ -684,29 +684,58 @@ html[data-theme="dark"] .theme-toggle__thumb {
 }
 
 .disclose > summary {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px 16px;
+    width: 100%;
+    margin-top: 14px;
+    color: var(--ink);
+    cursor: pointer;
+    font-size: 0.82rem;
+    list-style: none;
+}
+
+.disclose__preview {
+    flex: 1 1 180px;
+    min-width: 0;
+    overflow: hidden;
+    color: var(--blue-deep);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.disclose__label {
     display: inline-flex;
+    flex: 0 0 auto;
     align-items: center;
     gap: 8px;
-    width: fit-content;
     min-height: 34px;
-    margin-top: 14px;
+    margin-left: auto;
     padding: 5px 12px;
     border: 1px solid var(--rule);
     border-radius: 999px;
     background: var(--chalk);
     color: var(--blue-deep);
-    cursor: pointer;
-    font-size: 0.82rem;
     font-weight: 600;
-    list-style: none;
-    transition: background-color 0.16s ease, color 0.16s ease, transform 0.16s ease;
+    transition: background-color 0.16s ease, color 0.16s ease, transform 0.16s ease, box-shadow 0.16s ease;
 }
 
 .disclose > summary::-webkit-details-marker {
     display: none;
 }
 
-.disclose > summary::after {
+.disclose > summary:focus-visible {
+    outline: none;
+}
+
+.disclose > summary:focus-visible .disclose__label {
+    outline: 3px solid var(--blue);
+    outline-offset: 3px;
+}
+
+.disclose__label::after {
     content: "";
     width: 7px;
     height: 7px;
@@ -716,13 +745,22 @@ html[data-theme="dark"] .theme-toggle__thumb {
     transition: transform 0.16s ease;
 }
 
-.disclose > summary:hover {
+.disclose > summary:hover .disclose__label {
     background: var(--mint);
     color: var(--ink);
     transform: translateY(-2px);
+    box-shadow: 0 6px 14px var(--accent-shadow);
 }
 
-.disclose[open] > summary::after {
+.disclose[open] > summary {
+    justify-content: flex-end;
+}
+
+.disclose[open] .disclose__preview {
+    display: none;
+}
+
+.disclose[open] .disclose__label::after {
     transform: rotate(225deg) translateY(-2px);
 }
 
@@ -1086,7 +1124,7 @@ html[data-theme="dark"] .theme-toggle__thumb {
     stroke-width: 1.5;
 }
 
-.ability-map__core text {
+.ability-map .ability-map__core text {
     fill: var(--chalk);
 }
 
@@ -1805,7 +1843,8 @@ html.is-theme-changing *::after {
     .theme-toggle__icon,
     .theme-toggle__preference,
     .disclose > summary,
-    .disclose > summary::after,
+    .disclose__label,
+    .disclose__label::after,
     .disclose > :not(summary),
     .background__details,
     .project,
@@ -1823,7 +1862,7 @@ html.is-theme-changing *::after {
 
     .cta:hover,
     .toolkit li:hover,
-    .disclose > summary:hover,
+    .disclose > summary:hover .disclose__label,
     .project:hover,
     .project:focus-within,
     .play-card:hover,

@@ -517,14 +517,14 @@ const syncItchGames = async () => {
 
     if (playStatus) {
       playStatus.textContent = added === 1
-        ? 'Synced with your itch.io profile — 1 new game added.'
+        ? 'Synced from itch.io — 1 new game added.'
         : added > 1
-          ? `Synced with your itch.io profile — ${added} new games added.`
-          : 'Synced with your itch.io profile.';
+          ? `Synced from itch.io — ${added} new games added.`
+          : 'Synced from itch.io.';
     }
   } catch {
     if (playStatus) {
-      playStatus.textContent = 'Showing saved credits; live profile unavailable.';
+      playStatus.textContent = 'Showing saved credits; itch.io unavailable.';
     }
   } finally {
     window.clearTimeout(timeout);
