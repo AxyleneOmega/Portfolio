@@ -58,8 +58,10 @@ a {
 }
 
 #top,
+#experience,
 #about,
 #work,
+#background,
 #connect {
     scroll-margin-top: 88px;
 }
@@ -223,6 +225,12 @@ a {
     text-underline-offset: 5px;
 }
 
+.hero__note {
+    max-width: 46ch;
+    margin: 24px 0 0;
+    font-size: 0.9rem;
+}
+
 .hero__figure {
     margin: 0;
 }
@@ -294,6 +302,50 @@ a {
     max-width: 52ch;
 }
 
+/* Experience */
+.experience {
+    border-top: 1px solid var(--rule);
+}
+
+.role {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: clamp(24px, 5vw, 64px);
+    padding: 32px 0;
+    border-bottom: 1px solid var(--rule);
+}
+
+.role__meta h3 {
+    margin: 0;
+    font-family: "Syne", "Segoe UI", sans-serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+    line-height: 1.25;
+}
+
+.role__meta p {
+    margin: 8px 0 0;
+}
+
+.role__dates {
+    color: var(--cobalt);
+    font-weight: 600;
+}
+
+.role__body {
+    margin: 0;
+    padding-left: 1.25rem;
+}
+
+.role__body li {
+    max-width: 64ch;
+    padding-left: 4px;
+}
+
+.role__body li + li {
+    margin-top: 12px;
+}
+
 /* Disciplines */
 .disciplines {
     border-top: 1px solid var(--rule);
@@ -326,6 +378,37 @@ a {
 .discipline__body p {
     margin: 0;
     max-width: 62ch;
+}
+
+.toolkit {
+    margin-top: clamp(40px, 5vw, 64px);
+}
+
+.toolkit h3,
+.work__more h3,
+.background__block h3 {
+    margin: 0 0 14px;
+    font-family: "Syne", "Segoe UI", sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.toolkit ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.toolkit li {
+    padding: 6px 18px 6px 0;
+    border-right: 1px solid var(--rule);
+}
+
+.toolkit li:last-child {
+    border-right: 0;
 }
 
 /* Projects */
@@ -389,6 +472,93 @@ a {
     text-underline-offset: 5px;
 }
 
+.project__media--diagram {
+    display: flex;
+    align-items: center;
+    padding: clamp(12px, 3vw, 28px);
+}
+
+.ability-map {
+    width: 100%;
+    height: auto;
+}
+
+.ability-map__node rect {
+    fill: var(--chalk);
+    stroke: var(--ink);
+    stroke-width: 1.5;
+}
+
+.ability-map__tab {
+    fill: var(--lavender);
+}
+
+.ability-map__core rect {
+    fill: var(--lavender);
+    stroke: var(--ink);
+    stroke-width: 1.5;
+}
+
+.ability-map__links path {
+    fill: none;
+    stroke: var(--rule);
+    stroke-width: 2;
+}
+
+.ability-map text {
+    fill: var(--ink);
+    font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.work__more {
+    margin-top: clamp(48px, 6vw, 72px);
+    padding-top: 28px;
+    border-top: 1px solid var(--rule);
+}
+
+.work__more ul {
+    margin: 0;
+    padding-left: 1.25rem;
+}
+
+.work__more li {
+    max-width: 68ch;
+}
+
+.work__more a {
+    color: var(--cobalt);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+/* Background */
+.background {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(24px, 4vw, 48px);
+}
+
+.background__block {
+    padding-top: 24px;
+    border-top: 1px solid var(--rule);
+}
+
+.background__block p {
+    margin: 0 0 10px;
+}
+
+.background__block ul {
+    margin: 0;
+    padding-left: 1.15rem;
+}
+
+.background__block li + li {
+    margin-top: 8px;
+}
+
 /* Connect */
 .connect {
     padding: clamp(72px, 9vw, 120px) 0 48px;
@@ -422,6 +592,14 @@ a {
     font-size: clamp(1.05rem, 2vw, 1.4rem);
     text-decoration: underline;
     text-underline-offset: 6px;
+}
+
+.connect__resume {
+    display: block;
+    margin-top: 12px;
+    color: var(--lavender);
+    text-decoration: underline;
+    text-underline-offset: 4px;
 }
 
 .connect__groups {
@@ -497,7 +675,9 @@ a {
         max-width: 560px;
     }
 
-    .project {
+    .project,
+    .role,
+    .background {
         grid-template-columns: minmax(0, 1fr);
     }
 }
