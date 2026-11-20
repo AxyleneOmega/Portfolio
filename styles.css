@@ -587,6 +587,7 @@ html[data-theme="dark"] .theme-toggle__thumb {
     font-family: "Syne", "Segoe UI", sans-serif;
     font-size: 20px;
     font-weight: 700;
+    white-space: pre;
 }
 
 .hero__caption {
@@ -813,6 +814,8 @@ html[data-theme="dark"] .theme-toggle__thumb {
     width: 100%;
     aspect-ratio: 16 / 10;
     object-fit: cover;
+    object-position: center;
+    object-position: 50% 20%;
 }
 
 .project__body {
