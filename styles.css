@@ -249,7 +249,7 @@
 .main__content h2{
     font-size: 4rem;
     background-color:  #b44c6c;
-    background-image: linear-gradient(to top, #a04dff 0%,#4e4cb4 100%);
+    background-image: linear-gradient(to top, #c18bff 0%,#4e4cb4 100%);
     background-size: 100%;
     clip:text;
     background-clip:text;
